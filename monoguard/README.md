@@ -17,6 +17,7 @@ Strictly decreasing: Each number is less than or equal to the previous one. If t
 Verify that the absolute difference between any two adjacent levels in the report is within the inclusive range of 1 to 3. Reports failing this rule are considered unsafe.
 
 ### Counting safe reports
+
 Identify and count all reports that pass both the monotonicity and difference validation criteria. Safe reports must maintain a consistent monotonic trend and have valid differences.
 
 ### Output results
