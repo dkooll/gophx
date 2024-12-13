@@ -33,7 +33,7 @@ func (lr *ListReconsilerImpl) SortLists() {
 
 func (lr *ListReconsilerImpl) ValidateInputs() error {
 	if len(lr.LeftList) != len(lr.RightList) {
-		return fmt.Errorf("Error: left and right lists must have the same length")
+		return fmt.Errorf("error: left and right lists must have the same length")
 	}
 	return nil
 }
