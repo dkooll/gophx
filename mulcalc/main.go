@@ -55,26 +55,3 @@ func main() {
 	}
 	fmt.Println(mr.PrintTotal())
 }
-
-// quick and dirty working one
-// package main
-//
-// import (
-// 	"fmt"
-// 	"regexp"
-// 	"strconv"
-// )
-//
-// func main() {
-// 	i := `xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))`
-// 	r := regexp.MustCompile(`mul\((\d+),(\d+)\)`)
-// 	matches := r.FindAllStringSubmatch(i, -1)
-//
-// 	total := 0
-// 	for _, match := range matches {
-// 		x, _ := strconv.Atoi(match[1])
-// 		y, _ := strconv.Atoi(match[2])
-// 		total += x * y
-// 	}
-// 	fmt.Println(total)
-// }
