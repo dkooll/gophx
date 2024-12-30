@@ -10,6 +10,6 @@ Some projects may grow into ongoing initiatives, but the primary focus is on exp
 
 For now the approach is just to define a interface with the methods you want to implement.
 
-Then create a struct that holds the data and implements the methods defined in the interface.
+Then create a struct that holds the data and implements the methods.
 
-And use the methods to encapsulate the logic.
+And these methods encapsulate the logic.
