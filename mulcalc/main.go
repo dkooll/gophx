@@ -7,7 +7,6 @@ import (
 	"strconv"
 )
 
-// Constants
 const (
 	mulPattern = `mul\((\d+),(\d+)\)`
 )
@@ -117,7 +116,6 @@ func main() {
 		return
 	}
 
-	// Print individual results
 	fmt.Println("Individual multiplication results:")
 	for _, result := range mr.GetResults() {
 		fmt.Printf("%s: %d × %d = %d\n",
