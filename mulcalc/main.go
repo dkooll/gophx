@@ -18,20 +18,20 @@ var (
 	ErrNoMatches  = errors.New("no valid multiplication expressions found")
 )
 
-// MultiplicationResult represents a single multiplication operation
-type MultiplicationResult struct {
-	X        int
-	Y        int
-	Product  int
-	Original string
-}
-
 // MulReconciler interface defines the contract for multiplication reconciliation
 type MulReconciler interface {
 	SetInput(input string) error
 	Process() error
 	GetResults() []MultiplicationResult
 	GetTotal() int
+}
+
+// MultiplicationResult represents a single multiplication operation
+type MultiplicationResult struct {
+	X        int
+	Y        int
+	Product  int
+	Original string
 }
 
 // MulReconcilerImpl implements the MulReconciler interface
