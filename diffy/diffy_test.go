@@ -270,7 +270,7 @@ func validateResource(
 	validateBlockOrResource(
 		t,
 		r.Type,
-		"root",        // path
+		"root", // path
 		r.Properties,
 		r.Blocks,
 		r.DynamicBlocks,
@@ -303,79 +303,79 @@ func validateBlock(
 }
 
 func validateBlockOrResource(
-    t *testing.T,
-    resourceType string,
-    path string,
-    props map[string]bool,
-    blocks map[string]*ParsedBlock,
-    dynBlocks map[string]*ParsedBlock,
-    ignore []string,
-    sb *SchemaBlock,
+	t *testing.T,
+	resourceType string,
+	path string,
+	props map[string]bool,
+	blocks map[string]*ParsedBlock,
+	dynBlocks map[string]*ParsedBlock,
+	ignore []string,
+	sb *SchemaBlock,
 ) {
-    if sb == nil {
-        return
-    }
+	if sb == nil {
+		return
+	}
 
-    // Check attributes
-    for attrName, attrInfo := range sb.Attributes {
-        if attrInfo.Computed {
-            continue
-        }
-        if inStringSlice(ignore, attrName) {
-            continue
-        }
-        if !props[attrName] {
-            if attrInfo.Required {
-                t.Logf("%s missing required property %s in %s",
-                    resourceType, attrName, path)
-            } else {
-                t.Logf("%s missing optional property %s in %s",
-                    resourceType, attrName, path)
-            }
-        }
-    }
+	// Check attributes
+	for attrName, attrInfo := range sb.Attributes {
+		if attrInfo.Computed {
+			continue
+		}
+		if inStringSlice(ignore, attrName) {
+			continue
+		}
+		if !props[attrName] {
+			if attrInfo.Required {
+				t.Logf("%s missing required property %s in %s",
+					resourceType, attrName, path)
+			} else {
+				t.Logf("%s missing optional property %s in %s",
+					resourceType, attrName, path)
+			}
+		}
+	}
 
-    // Check block_types
-    for blockName, blockType := range sb.BlockTypes {
-        // Skip timouts block
-        if blockName == "timeouts" {
-            continue
-        }
+	// Check block_types
+	for blockName, blockType := range sb.BlockTypes {
+		// Skip timouts block
+		if blockName == "timeouts" {
+			continue
+		}
 
-        if inStringSlice(ignore, blockName) {
-            continue
-        }
-        sub := blocks[blockName]
-        dyn := dynBlocks[blockName]
-        if sub == nil && dyn == nil {
-            if blockType.MinItems > 0 {
-                t.Logf("%s missing required block %s in %s",
-                    resourceType, blockName, path)
-            } else {
-                t.Logf("%s missing optional block %s in %s",
-                    resourceType, blockName, path)
-            }
-            continue
-        }
-        var used *ParsedBlock
-        if sub != nil {
-            used = sub
-        } else {
-            used = dyn
-        }
-        newPath := path + "." + blockName
+		if inStringSlice(ignore, blockName) {
+			continue
+		}
+		sub := blocks[blockName]
+		dyn := dynBlocks[blockName]
+		if sub == nil && dyn == nil {
+			if blockType.MinItems > 0 {
+				t.Logf("%s missing required block %s in %s",
+					resourceType, blockName, path)
+			} else {
+				t.Logf("%s missing optional block %s in %s",
+					resourceType, blockName, path)
+			}
+			continue
+		}
+		var used *ParsedBlock
+		if sub != nil {
+			used = sub
+		} else {
+			used = dyn
+		}
+		newPath := path + "." + blockName
 
-        validateBlock(
-            t,
-            resourceType,
-            newPath,
-            used.Properties,
-            used.Blocks,
-            used.DynamicBlocks,
-            append(ignore, used.IgnoreChanges...),
-            blockType.Block,
-        )
-    }
+		validateBlock(
+			t,
+			resourceType,
+			newPath,
+			used.Properties,
+			used.Blocks,
+			used.DynamicBlocks,
+			append(ignore, used.IgnoreChanges...),
+			blockType.Block,
+		)
+	}
 }
 
 func inStringSlice(list []string, s string) bool {
